@@ -8,6 +8,7 @@ import { RadioGroup } from 'src/ui/radio-group';
 import { ArticleStateType, backgroundColors, contentWidthArr, fontColors, fontFamilyOptions, fontSizeOptions } from 'src/constants/articleProps';
 import { Text } from 'src/ui/text';
 import { Separator } from 'src/ui/separator';
+import { useOutsideClickClose } from 'src/ui/select/hooks/useOutsideClickClose';
 
 type ArticleParamsFormProps = {
 	settings: ArticleStateType;
@@ -19,13 +20,23 @@ export const ArticleParamsForm = (props: ArticleParamsFormProps) => {
 	const {settings, submitButtonAction, resetButtonAction} = props;
 	const [isOpen, setIsOpen] = useState(false);
 	const [data, setData] = useState(settings);
+	const rootRef = useRef<HTMLDivElement>(null);
 
+	useOutsideClickClose({
+		isOpen: isOpen,
+		rootRef: rootRef,
+		onChange: ()=> {
+			// Сохранять при закрытии с кликом вне формы не надо
+		},
+		onClose: ()=> {setIsOpen(false)}
+	})
 	useEffect(() => {
 		setData(settings)
 	}, [settings])
 	const submitChanges = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		submitButtonAction(data);
+		setIsOpen(false);
 	}
 
 	return (
@@ -34,7 +45,7 @@ export const ArticleParamsForm = (props: ArticleParamsFormProps) => {
 				setIsOpen(!isOpen)
 
 			}} />
-			<aside className={isOpen ? `${styles.container_open} ${styles.container}` : styles.container}>
+			<aside ref={rootRef} className={isOpen ? `${styles.container_open} ${styles.container}` : styles.container}>
 				<form className={styles.form} onSubmit={submitChanges}>
 					<Text as={'h2'} size={31} weight={800} uppercase>Задайте параметры</Text>
 
