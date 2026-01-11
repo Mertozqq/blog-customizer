@@ -28,8 +28,6 @@ export const ArticleParamsForm = (props: ArticleParamsFormProps) => {
 		submitButtonAction(data);
 	}
 
-
-
 	return (
 		<>
 			<ArrowButton isOpen={isOpen} onClick={() => {
