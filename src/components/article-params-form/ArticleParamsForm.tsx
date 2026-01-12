@@ -26,7 +26,7 @@ export const ArticleParamsForm = (props: ArticleParamsFormProps) => {
 		isOpen: isOpen,
 		rootRef: rootRef,
 		onChange: ()=> {
-			// Сохранять при закрытии с кликом вне формы не надо
+			// Сохранять при закрытии с кликом вне формы не надо (вроде)
 		},
 		onClose: ()=> {setIsOpen(false)}
 	})
