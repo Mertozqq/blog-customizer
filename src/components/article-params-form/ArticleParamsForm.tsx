@@ -5,7 +5,7 @@ import styles from './ArticleParamsForm.module.scss';
 import { useEffect, useRef, useState } from 'react';
 import { Select } from 'src/ui/select/Select';
 import { RadioGroup } from 'src/ui/radio-group';
-import { ArticleStateType, backgroundColors, contentWidthArr, fontColors, fontFamilyOptions, fontSizeOptions } from 'src/constants/articleProps';
+import { ArticleStateType, backgroundColors, contentWidthArr, defaultArticleState, fontColors, fontFamilyOptions, fontSizeOptions } from 'src/constants/articleProps';
 import { Text } from 'src/ui/text';
 import { Separator } from 'src/ui/separator';
 import { useOutsideClickClose } from 'src/ui/select/hooks/useOutsideClickClose';
@@ -38,6 +38,10 @@ export const ArticleParamsForm = (props: ArticleParamsFormProps) => {
 		submitButtonAction(data);
 		setIsOpen(false);
 	}
+	const resetFormButtonAction = () => {
+		resetButtonAction();
+		setData(defaultArticleState);
+}
 
 	return (
 		<>
@@ -86,7 +90,7 @@ export const ArticleParamsForm = (props: ArticleParamsFormProps) => {
 						})
 					}}></Select>
 					<div className={styles.bottomContainer}>
-						<Button title='Сбросить' onClick={resetButtonAction} htmlType='reset' type='clear' />
+						<Button title='Сбросить' onClick={resetFormButtonAction} htmlType='reset' type='clear' />
 						<Button title='Применить' htmlType='submit' type='apply' />
 					</div>
 				</form>
